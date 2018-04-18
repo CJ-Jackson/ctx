@@ -36,6 +36,10 @@ func NewContext(req *http.Request, res http.ResponseWriter) (*http.Request, Cont
 	return req.WithContext(context.WithValue(req.Context(), "contextHolder", ctx)), ctx
 }
 
+func GetContext(req *http.Request) Context {
+	return req.Context().Value("contextHolder").(Context)
+}
+
 func (c *contextHolder) Title() string {
 	return c.title
 }
