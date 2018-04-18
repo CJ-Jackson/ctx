@@ -71,3 +71,26 @@ func (c *contextHolder) Request() *http.Request {
 func (c *contextHolder) Response() http.ResponseWriter {
 	return c.res
 }
+
+type BackgroundContext interface {
+	Ctx(name string) interface{}
+	GetCtx(name string, value interface{})
+}
+
+type backgroundContextHolder struct {
+	ctx map[string]interface{}
+}
+
+func NewBackgroundContext() BackgroundContext {
+	return &backgroundContextHolder{
+		ctx: map[string]interface{}{},
+	}
+}
+
+func (c *backgroundContextHolder) Ctx(name string) interface{} {
+	return c.ctx[name]
+}
+
+func (c *backgroundContextHolder) GetCtx(name string, value interface{}) {
+	c.ctx[name] = value
+}
