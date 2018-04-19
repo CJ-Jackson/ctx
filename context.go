@@ -74,7 +74,7 @@ func (c *contextHolder) Response() http.ResponseWriter {
 
 type BackgroundContext interface {
 	Ctx(name string) interface{}
-	GetCtx(name string, value interface{})
+	SetCtx(name string, value interface{})
 }
 
 type backgroundContextHolder struct {
@@ -91,6 +91,6 @@ func (c *backgroundContextHolder) Ctx(name string) interface{} {
 	return c.ctx[name]
 }
 
-func (c *backgroundContextHolder) GetCtx(name string, value interface{}) {
+func (c *backgroundContextHolder) SetCtx(name string, value interface{}) {
 	c.ctx[name] = value
 }
